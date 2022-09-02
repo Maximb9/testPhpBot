@@ -5,15 +5,21 @@ require 'vendor/autoload.php';
 $title = $_POST['title'];
 $description = $_POST['description'];
 
-$text = "<b>$title</b>".PHP_EOL.$description.PHP_EOL."<a href='google.com'>Ссылка на гугл</a>";
+//$text = "<b>$title</b>".PHP_EOL.$description.PHP_EOL."<a href='google.com'>Ссылка на гугл</a>";
+
+$file = '1.png';
+
+$file_ext = explode('.', $file)[1];
+
+$cfile = new \CURLFile('C:/laragon/www/testLaravel888Bot/images/'.$file);
+$cfile->setPostFilename('attachment.'.$file_ext);
 
 $array = array(
     'chat_id'    => 462541603,
-    'text' => $text,
-    'parse_mode' => 'html',
+    'document' => $cfile,
 );
 
-$ch = curl_init('https://api.telegram.org/bot5653804639:AAENt_Piz4Tg5OX0VVLZ1vXKh9BSj--B0f0/sendMessage');
+$ch = curl_init('https://api.telegram.org/bot5653804639:AAENt_Piz4Tg5OX0VVLZ1vXKh9BSj--B0f0/sendDocument');
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($array, '', '&'));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
